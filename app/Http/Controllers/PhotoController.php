@@ -15,7 +15,7 @@ class PhotoController extends Controller
     public function index()
     {
         $data = Photo::all();
-        return view('pages.index',compact('data'));
+        return view('pages.home',compact('data'));
     }
 
     /**
@@ -41,7 +41,7 @@ class PhotoController extends Controller
         $data->nom = $request->nom;
         $data->description = $request->description;
         $data->save();
-        return redirect()->route('photos.index')
+        return redirect()->route('photos.index');
 
     }
 
@@ -51,10 +51,10 @@ class PhotoController extends Controller
      * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function show(Photo $dataphoto)
+    public function show(Photo $photo)
     {
 
-        return view('layouts.show',compact('dataphoto'))
+        return view('layouts.show',compact('photo'));
     }
 
     /**
@@ -63,13 +63,9 @@ class PhotoController extends Controller
      * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Photo $data)
+    public function edit(Photo $photo)
     {
-        $data->url = $request->url;
-        $data->nom = $request->nom;
-        $data->description = $request->description;
-        $data->save();
-        return redirect()->route('photos.index')
+        return view('layouts.edit',compact('photo'));
     }
 
     /**
@@ -81,7 +77,11 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-        //
+        $photo->url = $request->url;
+        $photo->nom = $request->nom;
+        $photo->description = $request->description;
+        $photo->save();
+        return redirect()->route('photos.index');
     }
 
     /**
@@ -93,6 +93,6 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
-        return redirect()->route('photos.index')
+        return redirect()->route('photos.index');
     }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Photo;
 use App\Http\Controllers\PhotoController;
+use App\Models\Album;
+use App\Http\Controllers\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,5 @@ Route::get('/', function () {
 });
 
 Route::resource('/photos', PhotoController::class);
+
+Route::resource('/albumes', AlbumController::class);
